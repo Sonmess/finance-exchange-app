@@ -4,6 +4,14 @@ export const messages = {
       title: 'Kurzy mien',
       subtitle: 'Referenčné výmenné kurzy Európskej centrálnej banky',
     },
+    calculator: {
+      title: 'Prevodník mien',
+      amount: 'Suma',
+      from: 'Z meny',
+      to: 'Na menu',
+      swap: 'Vymeniť meny',
+      invalidAmount: 'Zadajte platnú sumu.',
+    },
     rates: {
       code: 'Kód',
       currency: 'Mena',
@@ -23,6 +31,14 @@ export const messages = {
     app: {
       title: 'Exchange Rates',
       subtitle: 'European Central Bank reference exchange rates',
+    },
+    calculator: {
+      title: 'Currency Converter',
+      amount: 'Amount',
+      from: 'From',
+      to: 'To',
+      swap: 'Swap currencies',
+      invalidAmount: 'Enter a valid amount.',
     },
     rates: {
       code: 'Code',

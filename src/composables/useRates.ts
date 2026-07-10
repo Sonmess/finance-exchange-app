@@ -1,5 +1,6 @@
 import { computed, ref } from 'vue'
 import { sortCurrencies } from '@/domain/currency'
+import type { EurRates } from '@/domain/exchange'
 import { trend, type Trend } from '@/domain/trend'
 import type { RatesApi, RatesSnapshot } from '@/services/RatesApi'
 
@@ -46,7 +47,9 @@ export function useRates(api: RatesApi) {
 
   const asOfDate = computed(() => latest.value?.date ?? null)
 
+  const eurRates = computed<EurRates | null>(() => latest.value?.rates ?? null)
+
   void load()
 
-  return { status, rows, asOfDate, reload: load }
+  return { status, rows, asOfDate, eurRates, reload: load }
 }

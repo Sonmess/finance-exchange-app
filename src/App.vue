@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import AsOfDate from '@/components/atoms/AsOfDate.vue'
+import ExchangeCalculator from '@/components/organisms/ExchangeCalculator.vue'
 import RatesTable from '@/components/organisms/RatesTable.vue'
 import { useRates } from '@/composables/useRates'
 import { FrankfurterApi } from '@/services/FrankfurterApi'
 
 const { t } = useI18n()
 
-const { status, rows, asOfDate, reload } = useRates(new FrankfurterApi())
+const { status, rows, asOfDate, eurRates, reload } = useRates(new FrankfurterApi())
 </script>
 
 <template>
@@ -17,6 +18,8 @@ const { status, rows, asOfDate, reload } = useRates(new FrankfurterApi())
         <h1 class="text-2xl font-bold">{{ t('app.title') }}</h1>
         <p class="text-gray-500">{{ t('app.subtitle') }}</p>
       </header>
+
+      <ExchangeCalculator v-if="eurRates" :rates="eurRates" class="mb-6" />
 
       <section class="rounded-xl bg-white p-6 shadow-sm">
         <AsOfDate v-if="asOfDate" :date="asOfDate" class="mb-4" />
