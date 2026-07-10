@@ -19,10 +19,11 @@ describe('FrankfurterApi', () => {
       vi.fn(async () => new Response(JSON.stringify(body))),
     )
 
-    const snapshots = await new FrankfurterApi().getRecentRates(7)
+    const result = await new FrankfurterApi().getRecentRates(7)
 
-    expect(snapshots.map((s) => s.date)).toEqual(['2026-07-08', '2026-07-09'])
-    expect(snapshots[1]).toEqual({
+    expect(result.stale).toBe(false)
+    expect(result.snapshots.map((s) => s.date)).toEqual(['2026-07-08', '2026-07-09'])
+    expect(result.snapshots[1]).toEqual({
       date: '2026-07-09',
       base: 'EUR',
       rates: { USD: 1.08, CZK: 25.2 },

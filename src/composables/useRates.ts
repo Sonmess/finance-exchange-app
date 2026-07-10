@@ -15,16 +15,18 @@ const HISTORY_DAYS = 7
 
 export function useRates(api: RatesApi) {
   const status = ref<'loading' | 'ready' | 'error'>('loading')
+  const stale = ref(false)
   const latest = ref<RatesSnapshot | null>(null)
   const previous = ref<RatesSnapshot | null>(null)
 
   async function load(): Promise<void> {
     status.value = 'loading'
     try {
-      const snapshots = await api.getRecentRates(HISTORY_DAYS)
+      const { snapshots, stale: fromCache } = await api.getRecentRates(HISTORY_DAYS)
       if (snapshots.length === 0) throw new Error('No rates available')
       latest.value = snapshots[snapshots.length - 1]
       previous.value = snapshots.length > 1 ? snapshots[snapshots.length - 2] : null
+      stale.value = fromCache
       status.value = 'ready'
     } catch {
       status.value = 'error'
@@ -51,5 +53,5 @@ export function useRates(api: RatesApi) {
 
   void load()
 
-  return { status, rows, asOfDate, eurRates, reload: load }
+  return { status, stale, rows, asOfDate, eurRates, reload: load }
 }

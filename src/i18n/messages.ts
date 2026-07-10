@@ -20,6 +20,8 @@ export const messages = {
       loading: 'Načítavam kurzy…',
       error: 'Kurzy sa nepodarilo načítať.',
       retry: 'Skúsiť znova',
+      stale:
+        'Aktuálne kurzy sa nepodarilo načítať. Zobrazené sú posledné známe kurzy a nemusia byť aktuálne.',
     },
     footer: {
       disclaimer:
@@ -48,6 +50,8 @@ export const messages = {
       loading: 'Loading rates…',
       error: 'Failed to load exchange rates.',
       retry: 'Try again',
+      stale:
+        'Current rates could not be loaded. Showing the last known rates, which may be outdated.',
     },
     footer: {
       disclaimer: 'ECB reference rates are indicative and not intended for trading.',

@@ -1,4 +1,4 @@
-import type { RatesApi, RatesSnapshot } from './RatesApi'
+import type { RatesApi, RatesResult } from './RatesApi'
 
 interface TimeSeriesResponse {
   base: string
@@ -9,7 +9,7 @@ interface TimeSeriesResponse {
 export class FrankfurterApi implements RatesApi {
   constructor(private readonly baseUrl = 'https://api.frankfurter.dev/v1') {}
 
-  async getRecentRates(days: number): Promise<RatesSnapshot[]> {
+  async getRecentRates(days: number): Promise<RatesResult> {
     const end = new Date()
     const start = new Date(end)
     start.setDate(start.getDate() - days)
@@ -20,9 +20,11 @@ export class FrankfurterApi implements RatesApi {
     }
     const body = (await response.json()) as TimeSeriesResponse
 
-    return Object.entries(body.rates)
+    const snapshots = Object.entries(body.rates)
       .map(([date, rates]) => ({ date, base: body.base, rates }))
       .sort((a, b) => a.date.localeCompare(b.date))
+
+    return { snapshots, stale: false }
   }
 }
 

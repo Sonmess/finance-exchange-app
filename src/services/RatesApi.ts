@@ -7,10 +7,14 @@ export interface RatesSnapshot {
   rates: Record<string, number>
 }
 
+export interface RatesResult {
+  /** Snapshots oldest first. Weekends and holidays have no snapshot. */
+  snapshots: RatesSnapshot[]
+  /** True when the data comes from a local fallback because the live source was unavailable. */
+  stale: boolean
+}
+
 export interface RatesApi {
-  /**
-   * Snapshots covering roughly the last `days` calendar days, oldest first.
-   * Weekends and holidays have no snapshot, so the result is shorter than `days`.
-   */
-  getRecentRates(days: number): Promise<RatesSnapshot[]>
+  /** Rates covering roughly the last `days` calendar days. */
+  getRecentRates(days: number): Promise<RatesResult>
 }
